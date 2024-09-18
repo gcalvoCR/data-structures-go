@@ -15,12 +15,13 @@ func (s *Stack) Push(item int) {
 func (s *Stack) Pop() int {
 	if len(s.items) == 0 {
 		fmt.Println("The stack is empty")
-		return -1
+		return -1 // Error: Stack is empty
 	}
 
-	item := s.items[len(s.items)-1]
-	s.items = s.items[:len(s.items)-1]
-	return item
+	lastIndex := len(s.items) - 1
+	popped := s.items[lastIndex]
+	s.items = s.items[:lastIndex]
+	return popped
 }
 
 func main() {
@@ -32,8 +33,8 @@ func main() {
 	stack.Push(6)
 
 	// Popping elements from the stack
-	fmt.Println(stack.Pop())
-	fmt.Println(stack.Pop())
-	fmt.Println(stack.Pop())
-	fmt.Println(stack.Pop())
+	fmt.Println(stack.Pop()) // Outputs: 6
+	fmt.Println(stack.Pop()) // Outputs: 4
+	fmt.Println(stack.Pop()) // Outputs: 2
+	fmt.Println(stack.Pop()) // Outputs: -1
 }
