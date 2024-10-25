@@ -1,4 +1,4 @@
-package main
+package pkg
 
 import (
 	"fmt"
@@ -6,20 +6,20 @@ import (
 	"github.com/fatih/color"
 )
 
-type Node struct {
+type DoublyNode struct {
 	data int
-	prev *Node
-	next *Node
+	prev *DoublyNode
+	next *DoublyNode
 }
 
-type LinkedList struct {
-	head *Node
-	tail *Node
+type DoublyLinkedList struct {
+	head *DoublyNode
+	tail *DoublyNode
 }
 
 // Insert at head
-func (list *LinkedList) InsertAtBeginning(data int) {
-	newNode := &Node{data: data}
+func (list *DoublyLinkedList) InsertAtBeginning(data int) {
+	newNode := &DoublyNode{data: data}
 
 	if list.head == nil {
 		list.head = newNode
@@ -36,8 +36,8 @@ func (list *LinkedList) InsertAtBeginning(data int) {
 }
 
 // Insert at tail
-func (list *LinkedList) InsertAtEnd(data int) {
-	newNode := &Node{data: data}
+func (list *DoublyLinkedList) InsertAtEnd(data int) {
+	newNode := &DoublyNode{data: data}
 
 	if list.head == nil {
 		list.head = newNode
@@ -50,7 +50,7 @@ func (list *LinkedList) InsertAtEnd(data int) {
 	list.tail = newNode
 }
 
-func (list *LinkedList) TraverseForward() {
+func (list *DoublyLinkedList) TraverseForward() {
 	current := list.head
 
 	if current == nil {
@@ -77,20 +77,29 @@ func (list *LinkedList) TraverseForward() {
 	fmt.Println()
 }
 
-func main() {
+func (list *DoublyLinkedList) TraverseBackwards() {
+	current := list.tail
 
-	dll := LinkedList{}
-	dll.InsertAtBeginning(10)
-	dll.InsertAtBeginning(20)
-	dll.InsertAtBeginning(30)
-	dll.InsertAtBeginning(40)
-	dll.TraverseForward()
+	if current == nil {
+		fmt.Println("Linked list is empty")
+		return
+	}
 
-	dll2 := LinkedList{}
-	dll2.InsertAtEnd(10)
-	dll2.InsertAtEnd(20)
-	dll2.InsertAtEnd(30)
-	dll2.InsertAtEnd(40)
-	dll2.TraverseForward()
+	fmt.Print("Linked list: ")
+	for current != nil {
+		prev := -1
+		if current.prev != nil {
+			prev = current.prev.data
+		}
+		fmt.Printf(" <-[ %d ", prev)
+		fmt.Printf("%s", color.GreenString(fmt.Sprintf("| %d |", current.data)))
+		next := -1
+		if current.next != nil {
+			next = current.next.data
+		}
+		fmt.Printf(" %d ]-> ", next)
 
+		current = current.next
+	}
+	fmt.Println()
 }

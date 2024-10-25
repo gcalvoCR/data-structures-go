@@ -1,4 +1,4 @@
-package main
+package pkg
 
 import "fmt"
 
@@ -19,17 +19,4 @@ func (q *Queue) Dequeue() int {
 	item := q.items[0]
 	q.items = q.items[1:]
 	return item
-}
-
-func main() {
-	queue := Queue{}
-
-	queue.Enqueue(1)
-	queue.Enqueue(2)
-	queue.Enqueue(3)
-
-	fmt.Println(queue.Dequeue())
-	fmt.Println(queue.Dequeue())
-	fmt.Println(queue.Dequeue())
-	fmt.Println(queue.Dequeue())
 }
